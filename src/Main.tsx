@@ -1,6 +1,7 @@
-import React from 'react';
-import { connect, Provider } from 'react-redux';
-import {Button, StyleSheet, Text, View} from 'react-native';
+import React, {useState} from 'react';
+import {connect} from 'react-redux';
+import {Button, StyleSheet, Text, TextInput, View} from 'react-native';
+import {SAVE_TODO} from "./actions/actions";
 
 const styles = StyleSheet.create({
     container: {
@@ -9,16 +10,25 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    input: {
+        borderWidth: 1,
+        borderColor: 'gray',
+        borderStyle: 'solid',
+        padding: 5
+    },
     button: {
         color: 'red'
     }
 });
 
-const Main = ({test}) => {
+const Main = ({test, saveTodo}) => {
+    const [todo, setTodo] = useState('');
+
     return (
         <View style={styles.container}>
             <Text>App goes here</Text>
-            <Button className={styles.button} title={test} />
+            <TextInput style={styles.input} placeholder={'TODO Message'} onChangeText={setTodo} />
+            <Button title={test} onPress={() => saveTodo(todo)} />
         </View>
     );
 };
@@ -27,4 +37,8 @@ const mapStateToProps = state => ({
     test: state.text
 });
 
-export default connect(mapStateToProps)(Main);
+const mapDispatchToProps = (dispatch) => ({
+    saveTodo: todo => dispatch({type: SAVE_TODO, payload: todo})
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Main);
