@@ -1,4 +1,10 @@
-import { ADD_TODO, REMOVE_TODO } from "../actions/actions";
+import {
+  ADD_TODO,
+  REMOVE_TODO,
+  MARK_TODO_AS_DONE,
+  MARK_TODO_AS_NEW
+} from "../actions/actions";
+import { DONE, NEW } from "../constants/todoStatus";
 
 const initialState = {
   idCounter: 0,
@@ -12,13 +18,29 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         idCounter: id,
-        todos: [...state.todos, { id: id, text: action.payload }]
+        todos: [...state.todos, { id, text: action.payload, status: NEW }]
       };
     case REMOVE_TODO:
       return {
         ...state,
         todos: state.todos.filter(todo => todo.id !== action.payload)
       };
+    case MARK_TODO_AS_DONE: {
+      return {
+        ...state,
+        todos: state.todos.map(todo =>
+          todo.id === action.payload ? { ...todo, status: DONE } : todo
+        )
+      };
+    }
+    case MARK_TODO_AS_NEW: {
+      return {
+        ...state,
+        todos: state.todos.map(todo =>
+          todo.id === action.payload ? { ...todo, status: NEW } : todo
+        )
+      };
+    }
     default:
       return state;
   }
