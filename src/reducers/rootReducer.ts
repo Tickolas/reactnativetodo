@@ -1,7 +1,7 @@
-import { ADD_TODO, REMOVE_TODO, MARK_TODO_AS_DONE, MARK_TODO_AS_NEW } from '../actions/actions'
+import { ADD_TODO, MARK_TODO_AS_DONE, MARK_TODO_AS_NEW, REMOVE_TODO } from '../actions/actions'
 import { DONE, NEW } from '../constants/todoStatus'
 
-const initialState = {
+export const initialState = {
     idCounter: 0,
     todos: []
 }
