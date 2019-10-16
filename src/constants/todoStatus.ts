@@ -1,2 +1,2 @@
-export const NEW = "NEW";
-export const DONE = "DONE";
+export const NEW = 'NEW'
+export const DONE = 'DONE'
