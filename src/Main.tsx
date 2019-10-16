@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {connect} from 'react-redux';
 import {Button, StyleSheet, Text, TextInput, View} from 'react-native';
-import {SAVE_TODO} from "./actions/actions";
+import {ADD_TODO, REMOVE_TODO} from "./actions/actions";
 
 const styles = StyleSheet.create({
     container: {
@@ -21,24 +21,32 @@ const styles = StyleSheet.create({
     }
 });
 
-const Main = ({test, saveTodo}) => {
+const Main = ({todos, addTodo, removeTodo}) => {
     const [todo, setTodo] = useState('');
 
     return (
         <View style={styles.container}>
             <Text>App goes here</Text>
-            <TextInput style={styles.input} placeholder={'TODO Message'} onChangeText={setTodo} />
-            <Button title={test} onPress={() => saveTodo(todo)} />
+            <TextInput style={styles.input} placeholder={'TODO Text'} onChangeText={setTodo}/>
+            <Button title={'Add TODO'} onPress={() => addTodo(todo)}/>
+            {todos.map((todo, idx) => (
+                <>
+                    <Text>{`${idx}: ${todo.text}`}</Text>
+                    <Button title={'X'} onPress={() => removeTodo(todo.id)}/>
+                </>
+            ))
+            }
         </View>
     );
 };
 
 const mapStateToProps = state => ({
-    test: state.text
+    todos: state.todos
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    saveTodo: todo => dispatch({type: SAVE_TODO, payload: todo})
+    addTodo: text => dispatch({type: ADD_TODO, payload: text}),
+    removeTodo: id => dispatch({type: REMOVE_TODO, payload: id})
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main);

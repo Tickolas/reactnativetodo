@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "TipTapp-demo",
-    "slug": "Tiptapp-demo",
+    "name": "ReactNativeTODO",
+    "slug": "ReactNativeTODO",
     "privacy": "public",
     "sdkVersion": "35.0.0",
     "platforms": [
