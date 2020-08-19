@@ -37,6 +37,7 @@
         "eslint-plugin-react": "7.x",
         "eslint-plugin-react-hooks": "1.x",
         "prettier": "^1.18.2",
+        "jest": "^26.4.0",
         "ts-jest": "^24.1.0",
         "typescript": "^3.4.5"
     },

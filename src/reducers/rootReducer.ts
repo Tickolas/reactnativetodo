@@ -1,5 +1,5 @@
-import { ADD_TODO, MARK_TODO_AS_DONE, MARK_TODO_AS_NEW, REMOVE_TODO } from '../actions/actions'
-import { DONE, NEW } from '../constants/todoStatus'
+import { ADD_TODO, MARK_TODO_AS_DONE, MARK_TODO_AS_OPEN, REMOVE_TODO } from '../actions/actions'
+import { DONE, OPEN } from '../constants/todoStatus'
 
 export const initialState = {
     idCounter: 0,
@@ -9,11 +9,11 @@ export const initialState = {
 const rootReducer = (state = initialState, action) => {
     switch (action.type) {
         case ADD_TODO:
-            let id = state.idCounter + 1
+            const id = state.idCounter + 1
             return {
                 ...state,
                 idCounter: id,
-                todos: [...state.todos, { id, text: action.payload, status: NEW }]
+                todos: [...state.todos, { id, text: action.payload, status: OPEN }]
             }
         case REMOVE_TODO:
             return {
@@ -26,10 +26,10 @@ const rootReducer = (state = initialState, action) => {
                 todos: state.todos.map(todo => (todo.id === action.payload ? { ...todo, status: DONE } : todo))
             }
         }
-        case MARK_TODO_AS_NEW: {
+        case MARK_TODO_AS_OPEN: {
             return {
                 ...state,
-                todos: state.todos.map(todo => (todo.id === action.payload ? { ...todo, status: NEW } : todo))
+                todos: state.todos.map(todo => (todo.id === action.payload ? { ...todo, status: OPEN } : todo))
             }
         }
         default:

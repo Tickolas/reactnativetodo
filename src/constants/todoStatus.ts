@@ -1,2 +1,2 @@
-export const NEW = 'NEW'
+export const OPEN = 'OPEN'
 export const DONE = 'DONE'

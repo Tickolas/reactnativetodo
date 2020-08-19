@@ -1,6 +1,6 @@
 import rootReducer, { initialState } from '../rootReducer'
-import { ADD_TODO, MARK_TODO_AS_DONE, MARK_TODO_AS_NEW, REMOVE_TODO } from '../../actions/actions'
-import { DONE, NEW } from '../../constants/todoStatus'
+import { ADD_TODO, MARK_TODO_AS_DONE, MARK_TODO_AS_OPEN, REMOVE_TODO } from '../../actions/actions'
+import { DONE, OPEN } from '../../constants/todoStatus'
 
 describe('RootReducer', () => {
     it('should handle ADD_TODO', () => {
@@ -8,14 +8,14 @@ describe('RootReducer', () => {
 
         const result = rootReducer(initialState, action)
 
-        expect(result).toEqual({ idCounter: 1, todos: [{ id: 1, status: NEW, text: action.payload }] })
+        expect(result).toEqual({ idCounter: 1, todos: [{ id: 1, status: OPEN, text: action.payload }] })
     })
 
     it('should handle REMOVE_TODO', () => {
         const state = {
             ...initialState,
             idCounter: 1,
-            todos: [{ id: 1, text: 'I should be removed', status: NEW }]
+            todos: [{ id: 1, text: 'I should be removed', status: OPEN }]
         }
         const action = { type: REMOVE_TODO, payload: 1 }
 
@@ -28,7 +28,7 @@ describe('RootReducer', () => {
         const state = {
             ...initialState,
             idCounter: 1,
-            todos: [{ id: 1, text: 'I should be removed', status: NEW }]
+            todos: [{ id: 1, text: 'I should be removed', status: OPEN }]
         }
         const action = { type: MARK_TODO_AS_DONE, payload: 1 }
 
@@ -37,16 +37,16 @@ describe('RootReducer', () => {
         expect(result).toEqual({ idCounter: 1, todos: [{ ...state.todos[0], status: DONE }] })
     })
 
-    it('should handle MARK_TODO_AS_NEW', () => {
+    it('should handle MARK_TODO_AS_OPEN', () => {
         const state = {
             ...initialState,
             idCounter: 1,
             todos: [{ id: 1, text: 'I should be removed', status: DONE }]
         }
-        const action = { type: MARK_TODO_AS_NEW, payload: 1 }
+        const action = { type: MARK_TODO_AS_OPEN, payload: 1 }
 
         const result = rootReducer(state, action)
 
-        expect(result).toEqual({ idCounter: 1, todos: [{ ...state.todos[0], status: NEW }] })
+        expect(result).toEqual({ idCounter: 1, todos: [{ ...state.todos[0], status: OPEN }] })
     })
 })
